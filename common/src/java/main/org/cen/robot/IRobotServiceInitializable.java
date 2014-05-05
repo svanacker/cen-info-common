@@ -7,11 +7,12 @@ package org.cen.robot;
  * @author Emmanuel ZURMELY
  */
 public interface IRobotServiceInitializable {
-	/**
-	 * Method called by the services provider once all services have been
-	 * initialized and registered. This method can be used by a service to
-	 * perform an initialization that depends on the other services available
-	 * through the services provider.
-	 */
-	public void afterRegister();
+
+    /**
+     * Method called by the services provider once all services have been
+     * initialized and registered. This method can be used by a service to
+     * perform an initialization that depends on the other services available
+     * through the services provider.
+     */
+    public void afterRegister();
 }

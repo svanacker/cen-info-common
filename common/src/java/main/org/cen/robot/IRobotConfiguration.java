@@ -10,29 +10,29 @@ import java.util.Properties;
  */
 public interface IRobotConfiguration {
 
-	/**
-	 * Returns the properties set.
-	 * 
-	 * @return the properties set
-	 */
-	public Properties getProperties();
+    /**
+     * Returns the properties set.
+     * 
+     * @return the properties set
+     */
+    Properties getProperties();
 
-	/**
-	 * Returns a property value.
-	 * 
-	 * @param key
-	 *            the property key
-	 * @return the property value or null if the property does not exist
-	 */
-	public String getProperty(String key);
+    /**
+     * Returns a property value.
+     * 
+     * @param key
+     *            the property key
+     * @return the property value or null if the property does not exist
+     */
+    String getProperty(String key);
 
-	/**
-	 * Sets a property.
-	 * 
-	 * @param key
-	 *            the property key
-	 * @param value
-	 *            the new property value
-	 */
-	public void setProperty(String key, String value);
+    /**
+     * Sets a property.
+     * 
+     * @param key
+     *            the property key
+     * @param value
+     *            the new property value
+     */
+    void setProperty(String key, String value);
 }

@@ -5,19 +5,20 @@ import java.util.Map;
 import org.cen.robot.IRobotServiceProvider;
 
 public interface IRobotDevice {
-	public String getName();
 
-	public Map<String, ?> getProperties();
+    String getName();
 
-	public Object getProperty(String name);
+    Map<String, ?> getProperties();
 
-	public void handleRequest(RobotDeviceRequest request);
+    Object getProperty(String name);
 
-	public void initialize(IRobotServiceProvider servicesProvider);
+    void handleRequest(RobotDeviceRequest request);
 
-	public boolean isEnabled();
+    void initialize(IRobotServiceProvider servicesProvider);
 
-	public void setEnabled(boolean enabled);
+    boolean isEnabled();
 
-	public void setProperty(String propertyName, Object value);
+    void setEnabled(boolean enabled);
+
+    void setProperty(String propertyName, Object value);
 }

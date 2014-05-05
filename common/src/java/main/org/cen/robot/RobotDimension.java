@@ -12,112 +12,116 @@ import org.cen.utils.PropertiesUtils;
  * @version 23/02/2007
  */
 public class RobotDimension implements IRobotAttribute {
-	private static final String PROPERTY_DEPTH = "depth";
 
-	private static final String PROPERTY_WEIGHT = "weight";
+    private static final String PROPERTY_DEPTH = "depth";
 
-	private static final String PROPERTY_WHEELS_DISTANCE = "wheelsDistance";
+    private static final String PROPERTY_WEIGHT = "weight";
 
-	private static final String PROPERTY_WIDTH = "width";
+    private static final String PROPERTY_WHEELS_DISTANCE = "wheelsDistance";
 
-	private static final String PREFIX_MOTOR_LEFT = "motors.left";
+    private static final String PROPERTY_WIDTH = "width";
 
-	private static final String PREFIX_MOTOR_RIGHT = "motors.right";
+    private static final String PREFIX_MOTOR_LEFT = "motors.left";
 
-	/**
-	 * Depth of the robot in mm.
-	 */
-	private double depth;
+    private static final String PREFIX_MOTOR_RIGHT = "motors.right";
 
-	/**
-	 * Left motor properties.
-	 */
-	private MotorProperties leftMotor;
+    /**
+     * Depth of the robot in mm.
+     */
+    private double depth;
 
-	/**
-	 * Right motor properties.
-	 */
-	private MotorProperties rightMotor;
+    /**
+     * Left motor properties.
+     */
+    private final MotorProperties leftMotor;
 
-	/**
-	 * The weight of the robot in kg.
-	 */
-	private double weight;
+    /**
+     * Right motor properties.
+     */
+    private final MotorProperties rightMotor;
 
-	/**
-	 * Distance between the wheels in mm.
-	 */
-	private double wheelsDistance;
+    /**
+     * The weight of the robot in kg.
+     */
+    private double weight;
 
-	/**
-	 * Width of the robot in mm.
-	 */
-	private double width;
+    /**
+     * Distance between the wheels in mm.
+     */
+    private double wheelsDistance;
 
-	public RobotDimension(double width, double depth, double weight, MotorProperties leftMotor, MotorProperties rightMotor, double wheelsDistance) {
-		super();
-		this.depth = depth;
-		this.leftMotor = leftMotor;
-		this.rightMotor = rightMotor;
-		this.weight = weight;
-		this.wheelsDistance = wheelsDistance;
-		this.width = width;
-	}
+    /**
+     * Width of the robot in mm.
+     */
+    private double width;
 
-	public RobotDimension(Properties properties, String prefix) {
-		super();
-		leftMotor = new MotorProperties(properties, prefix + PREFIX_MOTOR_LEFT + ".");
-		rightMotor = new MotorProperties(properties, prefix + PREFIX_MOTOR_RIGHT + ".");
-		setFromProperties(properties, prefix);
-	}
+    public RobotDimension(double width, double depth, double weight, MotorProperties leftMotor,
+            MotorProperties rightMotor, double wheelsDistance) {
+        super();
+        this.depth = depth;
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
+        this.weight = weight;
+        this.wheelsDistance = wheelsDistance;
+        this.width = width;
+    }
 
-	/**
-	 * Returns the robot's depth.
-	 */
-	public double getDepth() {
-		return depth;
-	}
+    public RobotDimension(Properties properties, String prefix) {
+        super();
+        leftMotor = new MotorProperties(properties, prefix + PREFIX_MOTOR_LEFT + ".");
+        rightMotor = new MotorProperties(properties, prefix + PREFIX_MOTOR_RIGHT + ".");
+        setFromProperties(properties, prefix);
+    }
 
-	public MotorProperties getLeftMotor() {
-		return leftMotor;
-	}
+    /**
+     * Returns the robot's depth.
+     */
+    public double getDepth() {
+        return depth;
+    }
 
-	public MotorProperties getRightMotor() {
-		return rightMotor;
-	}
+    public MotorProperties getLeftMotor() {
+        return leftMotor;
+    }
 
-	public double getWeight() {
-		return weight;
-	}
+    public MotorProperties getRightMotor() {
+        return rightMotor;
+    }
 
-	/**
-	 * Return the distance for a wheel distance for each wheel so that the robot
-	 * can make a rotation
-	 */
-	public double getWheelDistance() {
-		return wheelsDistance;
-	}
+    public double getWeight() {
+        return weight;
+    }
 
-	/**
-	 * Returns the robot's width.
-	 */
-	public double getWidth() {
-		return width;
-	}
+    /**
+     * Return the distance for a wheel distance for each wheel so that the robot
+     * can make a rotation
+     */
+    public double getWheelDistance() {
+        return wheelsDistance;
+    }
 
-	public void setFromProperties(Properties properties, String prefix) {
-		width = PropertiesUtils.getDouble(properties, prefix + PROPERTY_WIDTH);
-		depth = PropertiesUtils.getDouble(properties, prefix + PROPERTY_DEPTH);
-		wheelsDistance = PropertiesUtils.getDouble(properties, prefix + PROPERTY_WHEELS_DISTANCE);
-		weight = PropertiesUtils.getDouble(properties, prefix + PROPERTY_WEIGHT);
-	}
+    /**
+     * Returns the robot's width.
+     */
+    public double getWidth() {
+        return width;
+    }
 
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
+    public void setFromProperties(Properties properties, String prefix) {
+        width = PropertiesUtils.getDouble(properties, prefix + PROPERTY_WIDTH);
+        depth = PropertiesUtils.getDouble(properties, prefix + PROPERTY_DEPTH);
+        wheelsDistance = PropertiesUtils.getDouble(properties, prefix + PROPERTY_WHEELS_DISTANCE);
+        weight = PropertiesUtils.getDouble(properties, prefix + PROPERTY_WEIGHT);
+    }
 
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "[width=" + width + ", depth=" + depth + ", wheelsDistance=" + wheelsDistance + ", weight=" + weight + " kg, leftMotor: " + leftMotor + ", rightMotor: " + rightMotor + "]";
-	}
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[width=" + width + ", depth=" + depth + ", wheelsDistance="
+                + wheelsDistance + ", weight=" + weight + " kg, leftMotor: " + leftMotor + ", rightMotor: "
+                + rightMotor + "]";
+    }
 }

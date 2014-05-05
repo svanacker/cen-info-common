@@ -19,126 +19,129 @@ import org.junit.Test;
  */
 public class NavigationDataDecoderTest {
 
-	// ReadPositionPulseInData
+    private static final double DELTA = 0.000001d;
 
-	@Test
-	public void should_decode_position_pulse_test1() throws Exception {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+    // ReadPositionPulseInData
 
-		ReadPositionPulseInData inData = (ReadPositionPulseInData) decoder.decode("w00AB1234-00CD5678");
+    @Test
+    public void should_decode_position_pulse_test1() throws Exception {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-		long left = inData.getLeft();
-		long right = inData.getRight();
+        ReadPositionPulseInData inData = (ReadPositionPulseInData) decoder.decode("w00AB1234-00CD5678");
 
-		Assert.assertTrue(11211316 == left);
-		Assert.assertTrue(13457016 == right);
-	}
+        long left = inData.getLeft();
+        long right = inData.getRight();
 
-	@Test
-	public void should_decode_position_pulse_test2() throws Exception {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        Assert.assertTrue(11211316 == left);
+        Assert.assertTrue(13457016 == right);
+    }
 
-		ReadPositionPulseInData inData = (ReadPositionPulseInData) decoder.decode("wFFAB1234-FFCD5678");
+    @Test
+    public void should_decode_position_pulse_test2() throws Exception {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-		long left = inData.getLeft();
-		long right = inData.getRight();
+        ReadPositionPulseInData inData = (ReadPositionPulseInData) decoder.decode("wFFAB1234-FFCD5678");
 
-		Assert.assertTrue(-5565900 == left);
-		Assert.assertTrue(-3320200 == right);
-	}
+        long left = inData.getLeft();
+        long right = inData.getRight();
 
-	@Test
-	public void should_decode_position_pulse_test3() throws Exception {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        Assert.assertTrue(-5565900 == left);
+        Assert.assertTrue(-3320200 == right);
+    }
 
-		ReadPositionPulseInData inData = (ReadPositionPulseInData) decoder.decode("wFFFFFFFF-FFFFFFFF");
+    @Test
+    public void should_decode_position_pulse_test3() throws Exception {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-		long left = inData.getLeft();
-		long right = inData.getRight();
+        ReadPositionPulseInData inData = (ReadPositionPulseInData) decoder.decode("wFFFFFFFF-FFFFFFFF");
 
-		Assert.assertTrue(-1 == left);
-		Assert.assertTrue(-1 == right);
-	}
+        long left = inData.getLeft();
+        long right = inData.getRight();
 
-	@Test(expected = IllegalComDataException.class)
-	public void should_throws_exception() throws Exception {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        Assert.assertTrue(-1 == left);
+        Assert.assertTrue(-1 == right);
+    }
 
-		decoder.decode("w0000-NOT-ENOUGH");
-	}
+    @Test(expected = IllegalComDataException.class)
+    public void should_throws_exception() throws Exception {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-	@Test
-	public void should_decode_absolute_position_test1() throws Exception {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        decoder.decode("w0000-NOT-ENOUGH");
+    }
 
-		PositionInData inData = (PositionInData) decoder.decode("k02-0123-4567-0384");
+    @Test
+    public void should_decode_absolute_position_test1() throws Exception {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-		PositionStatus status = inData.getStatus();
-		double x = inData.getX();
-		double y = inData.getY();
+        PositionInData inData = (PositionInData) decoder.decode("k02-0123-4567-0384");
 
-		double alpha = inData.getAlpha();
+        PositionStatus status = inData.getStatus();
+        double x = inData.getX();
+        double y = inData.getY();
 
-		Assert.assertEquals(PositionStatus.BLOCKED, status);
-		Assert.assertEquals(291d, x);
-		Assert.assertEquals(17767d, y);
-		Assert.assertEquals(Math.PI / 2, alpha);
-	}
+        double alpha = inData.getAlpha();
 
-	@Test
-	public void should_decode_ask_position_test1() throws IllegalComDataException {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        Assert.assertEquals(PositionStatus.BLOCKED, status);
+        Assert.assertEquals(291d, x, DELTA);
+        Assert.assertEquals(17767d, y, DELTA);
+        Assert.assertEquals(Math.PI / 2, alpha, DELTA);
+    }
 
-		PositionAskInData inData = (PositionAskInData) decoder.decode("h0123-4567-0708");
-		double x = inData.getX();
-		double y = inData.getY();
+    @Test
+    public void should_decode_ask_position_test1() throws IllegalComDataException {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-		double alpha = inData.getAlpha();
+        PositionAskInData inData = (PositionAskInData) decoder.decode("h0123-4567-0708");
+        double x = inData.getX();
+        double y = inData.getY();
 
-		Assert.assertEquals(291d, x);
-		Assert.assertEquals(17767d, y);
-		Assert.assertEquals(Math.PI, alpha);
-	}
+        double alpha = inData.getAlpha();
 
-	@Test
-	public void should_decode_read_pid() throws IllegalComDataException {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        Assert.assertEquals(291d, x, DELTA);
+        Assert.assertEquals(17767d, y, DELTA);
+        Assert.assertEquals(Math.PI, alpha, DELTA);
+    }
 
-		ReadPIDInData inData = (ReadPIDInData) decoder.decode("q0102030405");
-		PIDData data = inData.getData();
-		Assert.assertEquals(1, data.getIndex());
-		Assert.assertEquals(2, data.getP());
-		Assert.assertEquals(3, data.getI());
-		Assert.assertEquals(4, data.getD());
-		Assert.assertEquals(5, data.getMaxI());
-	}
+    @Test
+    public void should_decode_read_pid() throws IllegalComDataException {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-	@Test
-	public void should_decode_motion_parameter_test1() throws IllegalComDataException {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        ReadPIDInData inData = (ReadPIDInData) decoder.decode("q0102030405");
+        PIDData data = inData.getData();
+        Assert.assertEquals(1, data.getIndex());
+        Assert.assertEquals(2, data.getP());
+        Assert.assertEquals(3, data.getI());
+        Assert.assertEquals(4, data.getD());
+        Assert.assertEquals(5, data.getMaxI());
+    }
 
-		ReadMotionParametersInData inData = (ReadMotionParametersInData) decoder.decode("?113325");
-		MotionParametersData data = inData.getData();
-		int motionType = data.getMotionType();
-		int acceleration = data.getAcceleration();
-		int speed = data.getSpeed();
+    @Test
+    public void should_decode_motion_parameter_test1() throws IllegalComDataException {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-		Assert.assertEquals(17, motionType);
-		Assert.assertEquals(51, acceleration);
-		Assert.assertEquals(37, speed);
-	}
+        ReadMotionParametersInData inData = (ReadMotionParametersInData) decoder.decode("?113325");
+        MotionParametersData data = inData.getData();
+        int motionType = data.getMotionType();
+        int acceleration = data.getAcceleration();
+        int speed = data.getSpeed();
 
-	@Test
-	public void should_decode_motion_end_detection_parameter_test1() throws IllegalComDataException {
-		NavigationDataDecoder decoder = new NavigationDataDecoder();
+        Assert.assertEquals(17, motionType);
+        Assert.assertEquals(51, acceleration);
+        Assert.assertEquals(37, speed);
+    }
 
-		ReadMotionEndDetectionParameterInData inData = (ReadMotionEndDetectionParameterInData) decoder.decode("~0102030405");
-		MotionEndDetectionParameter data = inData.getData();
+    @Test
+    public void should_decode_motion_end_detection_parameter_test1() throws IllegalComDataException {
+        NavigationDataDecoder decoder = new NavigationDataDecoder();
 
-		Assert.assertEquals(1.0f, data.getAbsDeltaPositionIntegralFactorThreshold());
-		Assert.assertEquals(2.0f, data.getMaxUIntegralFactorThreshold());
-		Assert.assertEquals(3.0f, data.getMaxUIntegralConstantThreshold());
-		Assert.assertEquals(4, data.getTimeRangeAnalysis());
-		Assert.assertEquals(5, data.getNoAnalysisAtStartupTime());
-	}
+        ReadMotionEndDetectionParameterInData inData = (ReadMotionEndDetectionParameterInData) decoder
+                .decode("~0102030405");
+        MotionEndDetectionParameter data = inData.getData();
+
+        Assert.assertEquals(1.0f, data.getAbsDeltaPositionIntegralFactorThreshold(), DELTA);
+        Assert.assertEquals(2.0f, data.getMaxUIntegralFactorThreshold(), DELTA);
+        Assert.assertEquals(3.0f, data.getMaxUIntegralConstantThreshold(), DELTA);
+        Assert.assertEquals(4, data.getTimeRangeAnalysis());
+        Assert.assertEquals(5, data.getNoAnalysisAtStartupTime());
+    }
 }
