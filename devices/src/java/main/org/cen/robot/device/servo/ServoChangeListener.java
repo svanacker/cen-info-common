@@ -9,11 +9,12 @@ import java.util.EventListener;
  * @version 02/03/2008
  */
 public interface ServoChangeListener extends EventListener {
-	/**
-	 * The interface which is called when parameter of servo change.
-	 * 
-	 * @param servoEngine
-	 *            an object representing the data
-	 */
-	public void onServoChange(ServoData servoData);
+
+    /**
+     * The interface which is called when parameter of servo change.
+     * 
+     * @param servoEngine
+     *            an object representing the data
+     */
+    void onServoChange(ServoData servoData);
 }

@@ -12,119 +12,127 @@ import org.cen.robot.IRobotServiceProvider;
  * @version 23/02/2007
  */
 public abstract class AbstractRobotDevice implements IRobotDevice {
-	private boolean enabled;
 
-	/**
-	 * The name of the device.
-	 */
-	protected String name;
+    private boolean enabled;
 
-	/**
-	 * Properties associated to the device.
-	 */
-	protected Map<String, Object> properties = new HashMap<String, Object>();
+    /**
+     * The name of the device.
+     */
+    protected String name;
 
-	protected IRobotServiceProvider servicesProvider;
+    /**
+     * Properties associated to the device.
+     */
+    protected Map<String, Object> properties = new HashMap<String, Object>();
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param name
-	 *            the name of the device
-	 */
-	public AbstractRobotDevice(String name) {
-		super();
-		this.name = name;
-	}
+    protected IRobotServiceProvider servicesProvider;
 
-	/**
-	 * Ensures that the specified property has been defined.
-	 * 
-	 * @param name
-	 *            the name of the property
-	 */
-	protected void assertPropertyDefined(String name) {
-		assert getProperty(name) != null : "Property " + name + " not defined :";
-	}
+    /**
+     * Constructor.
+     * 
+     * @param name
+     *            the name of the device
+     */
+    public AbstractRobotDevice(String name) {
+        super();
+        this.name = name;
+    }
 
-	/**
-	 * Executes the specified action for debugging purpose.
-	 * 
-	 * @param debugAction
-	 *            the name of the action
-	 */
-	public void debug(String debugAction) {
-		// no default action
-	}
+    /**
+     * Ensures that the specified property has been defined.
+     * 
+     * @param name
+     *            the name of the property
+     */
+    protected void assertPropertyDefined(String name) {
+        assert getProperty(name) != null : "Property " + name + " not defined :";
+    }
 
-	/**
-	 * Returns the name of this device
-	 * 
-	 * @return the name of this device
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Executes the specified action for debugging purpose.
+     * 
+     * @param debugAction
+     *            the name of the action
+     */
+    public void debug(String debugAction) {
+        // no default action
+    }
 
-	public Map<String, ?> getProperties() {
-		return properties;
-	}
+    /**
+     * Returns the name of this device
+     * 
+     * @return the name of this device
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Returns the value of a property of this device.
-	 * 
-	 * @param name
-	 *            the name of the property
-	 * @return the value of the property
-	 */
-	public Object getProperty(String name) {
-		return properties.get(name);
-	}
+    @Override
+    public Map<String, ?> getProperties() {
+        return properties;
+    }
 
-	public IRobotServiceProvider getServicesProvider() {
-		return servicesProvider;
-	}
+    /**
+     * Returns the value of a property of this device.
+     * 
+     * @param name
+     *            the name of the property
+     * @return the value of the property
+     */
+    @Override
+    public Object getProperty(String name) {
+        return properties.get(name);
+    }
 
-	/**
-	 * Handles the specified request
-	 * 
-	 * @param request
-	 *            the request object to handle
-	 */
-	public void handleRequest(RobotDeviceRequest request) {
-		internalHandleRequest(request);
-	}
+    public IRobotServiceProvider getServicesProvider() {
+        return servicesProvider;
+    }
 
-	@Override
-	public void initialize(IRobotServiceProvider servicesProvider) {
-		this.servicesProvider = servicesProvider;
-	}
+    /**
+     * Handles the specified request
+     * 
+     * @param request
+     *            the request object to handle
+     */
+    @Override
+    public void handleRequest(RobotDeviceRequest request) {
+        internalHandleRequest(request);
+    }
 
-	/**
-	 * Handles a request.
-	 * 
-	 * @param request
-	 *            the request object to handle
-	 */
-	protected abstract void internalHandleRequest(RobotDeviceRequest request);
+    @Override
+    public void initialize(IRobotServiceProvider servicesProvider) {
+        this.servicesProvider = servicesProvider;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    /**
+     * Handles a request.
+     * 
+     * @param request
+     *            the request object to handle
+     */
+    protected abstract void internalHandleRequest(RobotDeviceRequest request);
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	/**
-	 * Sets the value of a property of this device.
-	 * 
-	 * @param name
-	 *            the name of the property
-	 * @param value
-	 *            the value of the property
-	 */
-	public void setProperty(String name, Object value) {
-		properties.put(name, value);
-	}
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * Sets the value of a property of this device.
+     * 
+     * @param name
+     *            the name of the property
+     * @param value
+     *            the value of the property
+     */
+    @Override
+    public void setProperty(String name, Object value) {
+        properties.put(name, value);
+    }
 }

@@ -9,11 +9,12 @@ import java.util.EventListener;
  * @version 02/03/2008
  */
 public interface RelayChangeListener extends EventListener {
-	/**
-	 * The interface which is called when parameter of relay change.
-	 * 
-	 * @param relayData
-	 *            an object representing the data which has changed
-	 */
-	public void onRelayChange(RelayData relayData);
+
+    /**
+     * The interface which is called when parameter of relay change.
+     * 
+     * @param relayData
+     *            an object representing the data which has changed
+     */
+    void onRelayChange(RelayData relayData);
 }

@@ -6,59 +6,60 @@ package org.cen.robot.device;
  * @author Emmanuel ZURMELY
  */
 public abstract class RobotDeviceRequest {
-	private static int counter = 0;
 
-	private static synchronized long getNextUID() {
-		return counter++;
-	}
+    private static int counter = 0;
 
-	protected String deviceName;
+    private static synchronized long getNextUID() {
+        return counter++;
+    }
 
-	protected int priority;
+    protected String deviceName;
 
-	protected long timeStamp;
+    protected int priority;
 
-	protected long uid;
+    protected long timeStamp;
 
-	/**
-	 * Constructor.
-	 */
-	public RobotDeviceRequest(String deviceName) {
-		super();
-		this.deviceName = deviceName;
-		uid = getNextUID();
-		priority = 0;
-		timeStamp = System.currentTimeMillis();
-	}
+    protected long uid;
 
-	/**
-	 * Returns the device name.
-	 * 
-	 * @return the device name
-	 */
-	public String getDeviceName() {
-		return deviceName;
-	}
+    /**
+     * Constructor.
+     */
+    public RobotDeviceRequest(String deviceName) {
+        super();
+        this.deviceName = deviceName;
+        uid = getNextUID();
+        priority = 0;
+        timeStamp = System.currentTimeMillis();
+    }
 
-	/**
-	 * Returns the priority of the request.
-	 * 
-	 * @return the priority of the request
-	 */
-	public int getPriority() {
-		return priority;
-	}
+    /**
+     * Returns the device name.
+     * 
+     * @return the device name
+     */
+    public String getDeviceName() {
+        return deviceName;
+    }
 
-	/**
-	 * Returns the time-stamp of this request.
-	 * 
-	 * @return the time-stamp of this request
-	 */
-	public long getTimeStamp() {
-		return timeStamp;
-	}
+    /**
+     * Returns the priority of the request.
+     * 
+     * @return the priority of the request
+     */
+    public int getPriority() {
+        return priority;
+    }
 
-	long getUID() {
-		return uid;
-	}
+    /**
+     * Returns the time-stamp of this request.
+     * 
+     * @return the time-stamp of this request
+     */
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    long getUID() {
+        return uid;
+    }
 }

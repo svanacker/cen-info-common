@@ -12,11 +12,11 @@ import java.util.EventListener;
  */
 public interface InDataListener extends EventListener {
 
-	/**
-	 * The interface which is called when data is read from the serial port.
-	 * 
-	 * @param data
-	 *            an object representing the data
-	 */
-	public void onInData(InData data);
+    /**
+     * The interface which is called when data is read from the serial port.
+     * 
+     * @param data
+     *            an object representing the data
+     */
+    void onInData(InData data);
 }
