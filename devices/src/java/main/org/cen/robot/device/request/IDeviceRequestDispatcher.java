@@ -1,8 +1,5 @@
 package org.cen.robot.device.request;
 
-import org.cen.robot.device.request.impl.RobotDeviceRequest;
-
-
 public interface IDeviceRequestDispatcher extends Runnable {
 
     /**
@@ -31,7 +28,7 @@ public interface IDeviceRequestDispatcher extends Runnable {
      */
     void clearRequests();
 
-    void sendRequest(RobotDeviceRequest request);
+    void sendRequest(IRobotDeviceRequest request);
 
     void terminate();
 }

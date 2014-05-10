@@ -1,6 +1,6 @@
 package org.cen.robot.device.timer;
 
-import org.cen.robot.device.request.impl.RobotDeviceRequest;
+import org.cen.robot.device.request.IRobotDeviceRequest;
 
 /**
  * Result object indicating that the robot is initialized.
@@ -8,13 +8,13 @@ import org.cen.robot.device.request.impl.RobotDeviceRequest;
  * @author Emmanuel ZURMELY
  */
 public class RobotInitializedResult extends TimerResult {
-	/**
-	 * Constructor.
-	 * 
-	 * @param request
-	 *            the request object of which this object is the result
-	 */
-	public RobotInitializedResult(RobotDeviceRequest request) {
-		super(request);
-	}
+    /**
+     * Constructor.
+     * 
+     * @param request
+     *            the request object of which this object is the result
+     */
+    public RobotInitializedResult(IRobotDeviceRequest request) {
+        super(request);
+    }
 }

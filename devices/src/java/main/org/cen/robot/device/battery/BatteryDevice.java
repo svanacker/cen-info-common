@@ -8,6 +8,7 @@ import org.cen.robot.device.request.IRobotDeviceRequest;
 import org.cen.robot.services.IRobotServiceProvider;
 
 public class BatteryDevice extends AbstractRobotDevice {
+
     public static final String NAME = "battery";
 
     public BatteryDevice(String name) {

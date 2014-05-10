@@ -12,6 +12,8 @@ import org.cen.com.in.InData;
  */
 public interface IInDataDecoder {
 
+    int HEADER_LENGTH = 1;
+
     /**
      * Returns the set of handled data headers.
      * 
@@ -23,7 +25,7 @@ public interface IInDataDecoder {
      * Decode the incomming data string.
      * 
      * @param data
-     *            the incomming data string
+     *            the incomming data string (contains header)
      * @return the data object associated to the incomming data string
      * @throws IllegalComDataException
      *             if the data string could not be decoded

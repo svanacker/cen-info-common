@@ -66,11 +66,12 @@ public class ConfigurationDevice extends AbstractRobotDevice implements InDataLi
     @Override
     public void onInData(InData data) {
         if (data instanceof ConfigurationReadInData) {
-            notifyResult(getResult((ConfigurationReadInData) data));
+            ConfigurationResult configurationResult = getResult((ConfigurationReadInData) data);
+            notifyResult(configurationResult);
         }
     }
 
-    void sendData(ConfigurationRequest request) {
+    private void sendData(ConfigurationRequest request) {
         this.request = request;
         IComService comService = servicesProvider.getService(IComService.class);
         comService.writeOutData(new ConfigurationReadOutData());

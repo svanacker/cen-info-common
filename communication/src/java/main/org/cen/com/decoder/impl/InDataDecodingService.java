@@ -14,8 +14,6 @@ import org.cen.com.in.UntypedInData;
  */
 public class InDataDecodingService implements IInDataDecodingService {
 
-    private static final int HEADER_LENGTH = 1;
-
     /**
      * All decoders which are registered by the system.
      */
@@ -23,12 +21,14 @@ public class InDataDecodingService implements IInDataDecodingService {
 
     @Override
     public InData decode(String data) throws IllegalComDataException {
-        String header = data.substring(0, HEADER_LENGTH);
+        String header = data.substring(0, IInDataDecoder.HEADER_LENGTH);
         IInDataDecoder decoder = getDecoder(header);
         if (decoder != null) {
-            return decoder.decode(data);
+            InData result = decoder.decode(data);
+            return result;
         } else {
-            return new UntypedInData(data);
+            UntypedInData result = new UntypedInData(data);
+            return result;
         }
     }
 

@@ -32,7 +32,8 @@ public class PropertiesUtils {
 			System.err.println("missing property: " + key);
 		}
 		try {
-			return Double.valueOf(value);
+			Double result = Double.valueOf(value);
+            return result;
 		} catch (Exception e) {
 			System.err.println("invalid property value: " + key + "=" + value);
 			e.printStackTrace();

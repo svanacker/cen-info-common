@@ -8,6 +8,7 @@ import org.cen.robot.device.IRobotDevice;
 import org.cen.robot.device.IRobotDevicesHandler;
 import org.cen.robot.device.RobotDeviceResult;
 import org.cen.robot.device.request.IDeviceRequestDispatcher;
+import org.cen.robot.device.request.IRobotDeviceRequest;
 import org.cen.robot.device.request.RobotDeviceRequestComparator;
 
 /**
@@ -35,7 +36,7 @@ public class DeviceRequestDispatcher implements IDeviceRequestDispatcher {
 
     private final IRobotDevicesHandler handler;
 
-    private final BlockingQueue<RobotDeviceRequest> queue = new PriorityBlockingQueue<RobotDeviceRequest>(15,
+    private final BlockingQueue<IRobotDeviceRequest> queue = new PriorityBlockingQueue<IRobotDeviceRequest>(15,
             new RobotDeviceRequestComparator());
 
     private boolean running = false;
@@ -56,11 +57,11 @@ public class DeviceRequestDispatcher implements IDeviceRequestDispatcher {
         thread.start();
     }
 
-    private void debug(IRobotDevice device, RobotDeviceRequest request, RobotDeviceResult result) {
+    private void debug(IRobotDevice device, IRobotDeviceRequest request, RobotDeviceResult result) {
         handler.notifyDebug(device, request, result);
     }
 
-    private IRobotDevice getTargetDevice(RobotDeviceRequest request) {
+    private IRobotDevice getTargetDevice(IRobotDeviceRequest request) {
         String deviceName = request.getDeviceName();
         Map<String, IRobotDevice> devices = handler.getDevices();
         if (devices == null) {
@@ -70,7 +71,7 @@ public class DeviceRequestDispatcher implements IDeviceRequestDispatcher {
         }
     }
 
-    private void handleRequest(RobotDeviceRequest request) {
+    private void handleRequest(IRobotDeviceRequest request) {
         if (request instanceof PurgeRequest) {
             queue.clear();
             return;
@@ -111,7 +112,7 @@ public class DeviceRequestDispatcher implements IDeviceRequestDispatcher {
         System.out.println("DeviceRequestDispatcher started");
         while (!terminated) {
             try {
-                RobotDeviceRequest request = queue.take();
+                IRobotDeviceRequest request = queue.take();
                 handleRequest(request);
                 if (stepByStep) {
                     synchronized (this) {
@@ -127,8 +128,8 @@ public class DeviceRequestDispatcher implements IDeviceRequestDispatcher {
     }
 
     @Override
-    public void sendRequest(RobotDeviceRequest request) {
-        request.uid = uid++;
+    public void sendRequest(IRobotDeviceRequest request) {
+        ((RobotDeviceRequest) request).uid = uid++;
         queue.offer(request);
     }
 

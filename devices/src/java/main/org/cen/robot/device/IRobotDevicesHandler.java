@@ -5,7 +5,6 @@ import java.util.Map;
 import org.cen.robot.device.request.IDeviceRequestDispatcher;
 import org.cen.robot.device.request.IDeviceResultDispatcher;
 import org.cen.robot.device.request.IRobotDeviceRequest;
-import org.cen.robot.device.request.impl.RobotDeviceRequest;
 import org.cen.robot.services.IRobotService;
 
 /**
@@ -59,17 +58,17 @@ public interface IRobotDevicesHandler extends IRobotService {
      */
     void unregisterDevice(IRobotDevice device);
 
-    void removeDeviceDebugListener(RobotDeviceDebugListener listener);
+    void removeDeviceDebugListener(IRobotDeviceDebugListener listener);
 
     void removeDeviceListener(IRobotDeviceListener listener);
 
-    void sendRequest(RobotDeviceRequest request);
+    void sendRequest(IRobotDeviceRequest request);
 
     void sendResult(IRobotDevice device, RobotDeviceResult result);
 
     void setProperty(String deviceName, String propertyName, Object value);
 
-    void addDeviceDebugListener(RobotDeviceDebugListener listener);
+    void addDeviceDebugListener(IRobotDeviceDebugListener listener);
 
     void addDeviceListener(IRobotDeviceListener listener);
 

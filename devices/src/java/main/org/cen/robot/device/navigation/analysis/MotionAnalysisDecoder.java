@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.cen.com.IllegalComDataException;
+import org.cen.com.decoder.IInDataDecoder;
 import org.cen.com.decoder.impl.DefaultDecoder;
 import org.cen.com.documentation.DeviceDataSignature;
 import org.cen.com.documentation.DeviceMethodSignature;
@@ -77,7 +78,7 @@ public class MotionAnalysisDecoder extends DefaultDecoder {
 
     @Override
     public InData decode(String data) throws IllegalComDataException {
-        String header = data.substring(0, 1);
+        String header = data.substring(0, IInDataDecoder.HEADER_LENGTH);
         if (header.equals(MotionInstructionInData.HEADER)) {
             checkLength(header, data);
             return decodeMotionInstructionInData(data);

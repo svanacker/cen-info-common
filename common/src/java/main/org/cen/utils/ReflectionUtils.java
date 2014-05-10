@@ -22,7 +22,8 @@ public class ReflectionUtils {
         try {
             throw new Exception();
         } catch (Exception e) {
-            return e.getStackTrace();
+            StackTraceElement[] result = e.getStackTrace();
+            return result;
         }
     }
 

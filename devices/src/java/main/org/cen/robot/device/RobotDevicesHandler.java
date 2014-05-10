@@ -12,7 +12,6 @@ import org.cen.robot.device.request.IDeviceResultDispatcher;
 import org.cen.robot.device.request.IRobotDeviceRequest;
 import org.cen.robot.device.request.impl.DeviceRequestDispatcher;
 import org.cen.robot.device.request.impl.DeviceResultDispatcher;
-import org.cen.robot.device.request.impl.RobotDeviceRequest;
 import org.cen.robot.services.IRobotService;
 import org.cen.robot.services.IRobotServiceProvider;
 
@@ -34,8 +33,8 @@ public class RobotDevicesHandler implements IRobotService, IRobotDevicesHandler 
     }
 
     @Override
-    public void addDeviceDebugListener(RobotDeviceDebugListener listener) {
-        listeners.add(RobotDeviceDebugListener.class, listener);
+    public void addDeviceDebugListener(IRobotDeviceDebugListener listener) {
+        listeners.add(IRobotDeviceDebugListener.class, listener);
     }
 
     @Override
@@ -88,8 +87,8 @@ public class RobotDevicesHandler implements IRobotService, IRobotDevicesHandler 
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = l.length - 2; i >= 0; i -= 2) {
-            if (l[i] == RobotDeviceDebugListener.class) {
-                RobotDeviceDebugListener listener = ((RobotDeviceDebugListener) l[i + 1]);
+            if (l[i] == IRobotDeviceDebugListener.class) {
+                IRobotDeviceDebugListener listener = ((IRobotDeviceDebugListener) l[i + 1]);
                 String listenerDeviceName = listener.getDeviceName();
                 String deviceName = device.getName();
                 if (listenerDeviceName.equals(deviceName)) {
@@ -123,8 +122,8 @@ public class RobotDevicesHandler implements IRobotService, IRobotDevicesHandler 
     }
 
     @Override
-    public void removeDeviceDebugListener(RobotDeviceDebugListener listener) {
-        listeners.remove(RobotDeviceDebugListener.class, listener);
+    public void removeDeviceDebugListener(IRobotDeviceDebugListener listener) {
+        listeners.remove(IRobotDeviceDebugListener.class, listener);
     }
 
     @Override
@@ -133,7 +132,7 @@ public class RobotDevicesHandler implements IRobotService, IRobotDevicesHandler 
     }
 
     @Override
-    public void sendRequest(RobotDeviceRequest request) {
+    public void sendRequest(IRobotDeviceRequest request) {
         requestsDispatcher.sendRequest(request);
     }
 

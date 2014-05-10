@@ -13,7 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * @see DefaultDecoder
+ * Test Case for {@link DefaultDecoder}
  */
 public class DefaultDecoderTest {
 
