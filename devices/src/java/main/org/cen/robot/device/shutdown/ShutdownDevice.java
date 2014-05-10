@@ -3,11 +3,11 @@ package org.cen.robot.device.shutdown;
 import org.cen.com.IComService;
 import org.cen.com.in.InData;
 import org.cen.com.in.InDataListener;
-import org.cen.robot.IRobotServiceProvider;
 import org.cen.robot.device.AbstractRobotDevice;
-import org.cen.robot.device.RobotDeviceRequest;
+import org.cen.robot.device.request.IRobotDeviceRequest;
 import org.cen.robot.device.shutdown.com.ShutdownDataDecoder;
 import org.cen.robot.device.shutdown.com.ShutdownInData;
+import org.cen.robot.services.IRobotServiceProvider;
 
 /**
  * Device for handling the computer shut down.
@@ -34,7 +34,7 @@ public class ShutdownDevice extends AbstractRobotDevice implements InDataListene
     }
 
     @Override
-    protected void internalHandleRequest(RobotDeviceRequest request) {
+    protected void internalHandleRequest(IRobotDeviceRequest request) {
     }
 
     @Override

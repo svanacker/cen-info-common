@@ -2,6 +2,7 @@ package org.cen.com;
 
 import java.util.Set;
 
+import org.cen.com.decoder.impl.DefaultDecoder;
 import org.cen.com.documentation.DeviceDataSignature;
 import org.cen.com.documentation.DeviceMethodSignature;
 import org.cen.com.documentation.DeviceMethodType;

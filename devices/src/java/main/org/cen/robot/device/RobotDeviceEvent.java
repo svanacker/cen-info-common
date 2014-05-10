@@ -6,13 +6,14 @@ package org.cen.robot.device;
  * @author Emmanuel ZURMELY
  */
 public class RobotDeviceEvent {
-	protected long timeStamp;
 
-	/**
-	 * Constructor.
-	 */
-	public RobotDeviceEvent() {
-		super();
-		timeStamp = System.currentTimeMillis();
-	}
+    protected long timeStamp;
+
+    /**
+     * Constructor.
+     */
+    public RobotDeviceEvent() {
+        super();
+        timeStamp = System.currentTimeMillis();
+    }
 }

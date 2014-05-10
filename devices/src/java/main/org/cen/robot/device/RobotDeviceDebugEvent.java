@@ -1,22 +1,24 @@
 package org.cen.robot.device;
 
+import org.cen.robot.device.request.IRobotDeviceRequest;
+
 public class RobotDeviceDebugEvent {
-	
-	protected RobotDeviceRequest request;
 
-	protected RobotDeviceResult result;
+    protected IRobotDeviceRequest request;
 
-	public RobotDeviceDebugEvent(RobotDeviceRequest request, RobotDeviceResult result) {
-		super();
-		this.request = request;
-		this.result = result;
-	}
+    protected RobotDeviceResult result;
 
-	public RobotDeviceRequest getRequest() {
-		return request;
-	}
+    public RobotDeviceDebugEvent(IRobotDeviceRequest request, RobotDeviceResult result) {
+        super();
+        this.request = request;
+        this.result = result;
+    }
 
-	public RobotDeviceResult getResult() {
-		return result;
-	}
+    public IRobotDeviceRequest getRequest() {
+        return request;
+    }
+
+    public RobotDeviceResult getResult() {
+        return result;
+    }
 }

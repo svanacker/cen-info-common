@@ -1,6 +1,6 @@
 package org.cen.robot.device.timer;
 
-import org.cen.robot.device.RobotDeviceRequest;
+import org.cen.robot.device.request.impl.RobotDeviceRequest;
 
 public class MatchFinishedRequest extends RobotDeviceRequest {
 	public MatchFinishedRequest() {

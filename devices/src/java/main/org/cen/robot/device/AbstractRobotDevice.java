@@ -3,7 +3,8 @@ package org.cen.robot.device;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.cen.robot.IRobotServiceProvider;
+import org.cen.robot.device.request.IRobotDeviceRequest;
+import org.cen.robot.services.IRobotServiceProvider;
 
 /**
  * Encapsulation of a Device for the robot.
@@ -96,7 +97,7 @@ public abstract class AbstractRobotDevice implements IRobotDevice {
      *            the request object to handle
      */
     @Override
-    public void handleRequest(RobotDeviceRequest request) {
+    public void handleRequest(IRobotDeviceRequest request) {
         internalHandleRequest(request);
     }
 
@@ -111,7 +112,7 @@ public abstract class AbstractRobotDevice implements IRobotDevice {
      * @param request
      *            the request object to handle
      */
-    protected abstract void internalHandleRequest(RobotDeviceRequest request);
+    protected abstract void internalHandleRequest(IRobotDeviceRequest request);
 
     @Override
     public boolean isEnabled() {

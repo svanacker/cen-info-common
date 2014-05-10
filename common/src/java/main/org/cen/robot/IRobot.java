@@ -2,6 +2,8 @@ package org.cen.robot;
 
 import java.util.List;
 
+import org.cen.robot.attributes.IRobotAttribute;
+import org.cen.robot.configuration.IRobotConfiguration;
 import org.cen.robot.device.IRobotDevice;
 
 /**

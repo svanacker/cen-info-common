@@ -1,7 +1,7 @@
 package org.cen.robot.device.relay.com;
 
-import org.cen.com.ComDataUtils;
 import org.cen.com.out.OutData;
+import org.cen.com.utils.ComDataUtils;
 import org.cen.robot.device.relay.RelayData;
 
 /**

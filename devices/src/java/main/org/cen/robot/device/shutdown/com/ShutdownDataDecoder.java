@@ -3,8 +3,8 @@ package org.cen.robot.device.shutdown.com;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.cen.com.DefaultDecoder;
 import org.cen.com.IllegalComDataException;
+import org.cen.com.decoder.impl.DefaultDecoder;
 import org.cen.com.documentation.DeviceDataSignature;
 import org.cen.com.documentation.DeviceMethodSignature;
 import org.cen.com.documentation.DeviceMethodType;

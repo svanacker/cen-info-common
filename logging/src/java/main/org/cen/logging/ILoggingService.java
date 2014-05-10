@@ -4,7 +4,7 @@ import java.io.Writer;
 import java.util.List;
 import java.util.logging.LogRecord;
 
-import org.cen.robot.IRobotService;
+import org.cen.robot.services.IRobotService;
 
 /**
  * Interface of a service providing global logging features.

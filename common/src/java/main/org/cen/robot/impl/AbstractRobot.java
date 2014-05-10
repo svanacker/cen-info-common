@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.cen.robot.IRobot;
-import org.cen.robot.IRobotAttribute;
-import org.cen.robot.IRobotConfiguration;
+import org.cen.robot.attributes.IRobotAttribute;
+import org.cen.robot.configuration.IRobotConfiguration;
 import org.cen.robot.device.IRobotDevice;
 
 /**

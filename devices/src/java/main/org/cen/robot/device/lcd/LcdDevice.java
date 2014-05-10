@@ -6,8 +6,8 @@ import java.util.List;
 import org.cen.com.IComService;
 import org.cen.com.out.OutData;
 import org.cen.robot.device.AbstractRobotDevice;
-import org.cen.robot.device.RobotDeviceRequest;
 import org.cen.robot.device.lcd.com.LcdPrintOutData;
+import org.cen.robot.device.request.IRobotDeviceRequest;
 
 public class LcdDevice extends AbstractRobotDevice implements ILcdDevice {
 
@@ -42,7 +42,7 @@ public class LcdDevice extends AbstractRobotDevice implements ILcdDevice {
     }
 
     @Override
-    protected void internalHandleRequest(RobotDeviceRequest request) {
+    protected void internalHandleRequest(IRobotDeviceRequest request) {
         if (request instanceof LcdWriteRequest) {
             sendData((LcdWriteRequest) request);
         }

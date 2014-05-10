@@ -1,7 +1,7 @@
 package org.cen.robot.device.battery;
 
-import org.cen.robot.device.RobotDeviceRequest;
 import org.cen.robot.device.RobotDeviceResult;
+import org.cen.robot.device.request.impl.RobotDeviceRequest;
 
 public class BatteryReadResult extends RobotDeviceResult {
 	private double voltage;

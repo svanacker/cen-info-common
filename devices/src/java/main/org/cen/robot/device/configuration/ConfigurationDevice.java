@@ -3,13 +3,13 @@ package org.cen.robot.device.configuration;
 import org.cen.com.IComService;
 import org.cen.com.in.InData;
 import org.cen.com.in.InDataListener;
-import org.cen.robot.IRobotServiceProvider;
 import org.cen.robot.device.AbstractRobotDevice;
 import org.cen.robot.device.IRobotDevicesHandler;
-import org.cen.robot.device.RobotDeviceRequest;
 import org.cen.robot.device.configuration.com.ConfigurationDataDecoder;
 import org.cen.robot.device.configuration.com.ConfigurationReadInData;
 import org.cen.robot.device.configuration.com.ConfigurationReadOutData;
+import org.cen.robot.device.request.IRobotDeviceRequest;
+import org.cen.robot.services.IRobotServiceProvider;
 
 public class ConfigurationDevice extends AbstractRobotDevice implements InDataListener, IConfigurationDevice {
 
@@ -52,7 +52,7 @@ public class ConfigurationDevice extends AbstractRobotDevice implements InDataLi
     }
 
     @Override
-    protected void internalHandleRequest(RobotDeviceRequest request) {
+    protected void internalHandleRequest(IRobotDeviceRequest request) {
         if (request instanceof ConfigurationReadRequest) {
             sendData((ConfigurationRequest) request);
         }

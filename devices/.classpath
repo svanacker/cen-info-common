@@ -6,5 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/communication"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/math-utils"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/logging"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/awt-adapter"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

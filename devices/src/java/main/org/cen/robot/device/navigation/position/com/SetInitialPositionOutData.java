@@ -1,12 +1,12 @@
 package org.cen.robot.device.navigation.position.com;
 
-import org.cen.com.ComDataUtils;
 import org.cen.com.documentation.DeviceDataSignature;
 import org.cen.com.documentation.DeviceMethodSignature;
 import org.cen.com.documentation.DeviceMethodType;
 import org.cen.com.documentation.DeviceParameter;
 import org.cen.com.documentation.DeviceParameterType;
 import org.cen.com.out.OutData;
+import org.cen.com.utils.ComDataUtils;
 import org.cen.math.MathUtils;
 import org.cen.robot.device.navigation.INavigationDevice;
 import org.cen.robot.device.pid.com.WritePIDOutData;

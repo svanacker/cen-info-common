@@ -1,7 +1,7 @@
 package org.cen.robot.device.navigation.com;
 
-import org.cen.com.ComDataUtils;
 import org.cen.com.out.OutData;
+import org.cen.com.utils.ComDataUtils;
 
 public class EnableCollisionOutData extends OutData {
 	private boolean enabled;

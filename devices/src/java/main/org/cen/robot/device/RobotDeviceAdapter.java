@@ -1,6 +1,6 @@
 package org.cen.robot.device;
 
-public class RobotDeviceAdapter implements RobotDeviceListener {
+public class RobotDeviceAdapter implements IRobotDeviceListener {
 	 
 	private String name;
 

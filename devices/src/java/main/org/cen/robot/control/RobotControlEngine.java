@@ -2,7 +2,7 @@ package org.cen.robot.control;
 
 import java.util.Properties;
 
-import org.cen.robot.IRobotAttribute;
+import org.cen.robot.attributes.IRobotAttribute;
 import org.cen.robot.device.navigation.parameters.MotionParametersData;
 import org.cen.robot.device.pid.com.MotionEndDetectionParameter;
 

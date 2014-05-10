@@ -1,7 +1,7 @@
 package org.cen.robot.device.beacon;
 
 import org.cen.robot.device.AbstractRobotDevice;
-import org.cen.robot.device.RobotDeviceRequest;
+import org.cen.robot.device.request.IRobotDeviceRequest;
 
 public class BeaconCommunicationDevice extends AbstractRobotDevice {
 
@@ -12,6 +12,6 @@ public class BeaconCommunicationDevice extends AbstractRobotDevice {
     }
 
     @Override
-    protected void internalHandleRequest(RobotDeviceRequest request) {
+    protected void internalHandleRequest(IRobotDeviceRequest request) {
     }
 }

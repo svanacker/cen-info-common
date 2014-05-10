@@ -2,6 +2,7 @@ package org.cen.com;
 
 import static org.junit.Assert.assertEquals;
 
+import org.cen.com.utils.ComDataUtils;
 import org.junit.Test;
 
 public class ComDataUtilsTest {

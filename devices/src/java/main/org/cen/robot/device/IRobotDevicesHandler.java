@@ -2,20 +2,23 @@ package org.cen.robot.device;
 
 import java.util.Map;
 
-import org.cen.robot.IRobotService;
+import org.cen.robot.device.request.IDeviceRequestDispatcher;
+import org.cen.robot.device.request.IDeviceResultDispatcher;
+import org.cen.robot.device.request.IRobotDeviceRequest;
+import org.cen.robot.device.request.impl.RobotDeviceRequest;
+import org.cen.robot.services.IRobotService;
 
+/**
+ * Robot Devices Container. Able to track the activity of each device, register,
+ * unregister them
+ * 
+ * @author Stephane
+ * 
+ */
 public interface IRobotDevicesHandler extends IRobotService {
 
-    void addDeviceDebugListener(RobotDeviceDebugListener listener);
-
-    void addDeviceListener(RobotDeviceListener listener);
-
-    void notifyDebug(IRobotDevice device, RobotDeviceRequest request, RobotDeviceResult result);
-
-    void notifyListeners(IRobotDevice device, RobotDeviceResult result);
-
     /**
-     * Find a device with his name
+     * Find a device with his name.
      * 
      * @param name
      * @return
@@ -38,15 +41,27 @@ public interface IRobotDevicesHandler extends IRobotService {
      */
     Object getProperty(String deviceName, String propertyName);
 
-    DeviceRequestDispatcher getRequestDispatcher();
+    IDeviceRequestDispatcher getRequestDispatcher();
 
-    DeviceResultDispatcher getResultDispatcher();
+    IDeviceResultDispatcher getResultDispatcher();
 
+    /**
+     * Register a device.
+     * 
+     * @param device
+     */
     void registerDevice(IRobotDevice device);
+
+    /**
+     * Unregister a device.
+     * 
+     * @param device
+     */
+    void unregisterDevice(IRobotDevice device);
 
     void removeDeviceDebugListener(RobotDeviceDebugListener listener);
 
-    void removeDeviceListener(RobotDeviceListener listener);
+    void removeDeviceListener(IRobotDeviceListener listener);
 
     void sendRequest(RobotDeviceRequest request);
 
@@ -54,5 +69,11 @@ public interface IRobotDevicesHandler extends IRobotService {
 
     void setProperty(String deviceName, String propertyName, Object value);
 
-    void unregisterDevice(IRobotDevice device);
+    void addDeviceDebugListener(RobotDeviceDebugListener listener);
+
+    void addDeviceListener(IRobotDeviceListener listener);
+
+    void notifyDebug(IRobotDevice device, IRobotDeviceRequest request, RobotDeviceResult result);
+
+    void notifyListeners(IRobotDevice device, RobotDeviceResult result);
 }

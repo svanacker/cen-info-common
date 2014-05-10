@@ -1,7 +1,7 @@
 package org.cen.robot.device.timer;
 
-import org.cen.robot.device.RobotDeviceRequest;
 import org.cen.robot.device.RobotDeviceResult;
+import org.cen.robot.device.request.impl.RobotDeviceRequest;
 
 /**
  * Abstract base class of the result objects of the timer device.

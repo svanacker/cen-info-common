@@ -5,15 +5,14 @@ package org.cen.com;
  */
 public class IllegalComDataException extends Exception {
 
-	/** Used for serialization. */
-	private static final long serialVersionUID = 1L;
+    /** Used for serialization. */
+    private static final long serialVersionUID = 1L;
 
-	public IllegalComDataException() {
+    public IllegalComDataException() {
 
-	}
+    }
 
-	public IllegalComDataException(String message) {
-		super(message);
-	}
-
+    public IllegalComDataException(String message) {
+        super(message);
+    }
 }

@@ -1,6 +1,6 @@
 package org.cen.robot.device.timer;
 
-import org.cen.robot.device.RobotDeviceRequest;
+import org.cen.robot.device.request.impl.RobotDeviceRequest;
 
 /**
  * Result object indicating that the match has been started.

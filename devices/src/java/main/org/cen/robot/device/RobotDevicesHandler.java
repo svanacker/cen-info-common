@@ -7,162 +7,176 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.swing.event.EventListenerList;
 
-import org.cen.robot.IRobotService;
-import org.cen.robot.IRobotServiceProvider;
+import org.cen.robot.device.request.IDeviceRequestDispatcher;
+import org.cen.robot.device.request.IDeviceResultDispatcher;
+import org.cen.robot.device.request.IRobotDeviceRequest;
+import org.cen.robot.device.request.impl.DeviceRequestDispatcher;
+import org.cen.robot.device.request.impl.DeviceResultDispatcher;
+import org.cen.robot.device.request.impl.RobotDeviceRequest;
+import org.cen.robot.services.IRobotService;
+import org.cen.robot.services.IRobotServiceProvider;
 
+/**
+ * Default implementation of {@link IRobotDevicesHandler}.
+ */
 public class RobotDevicesHandler implements IRobotService, IRobotDevicesHandler {
-	private Map<String, IRobotDevice> devices;
 
-	private DeviceRequestDispatcher requestsDispatcher;
+    private Map<String, IRobotDevice> devices;
 
-	private DeviceResultDispatcher resultsDispatcher;
+    private IDeviceRequestDispatcher requestsDispatcher;
 
-	private EventListenerList listeners;
+    private IDeviceResultDispatcher resultsDispatcher;
 
-	public RobotDevicesHandler() {
-		super();
-	}
+    private EventListenerList listeners;
 
-	@Override
-	public void addDeviceDebugListener(RobotDeviceDebugListener listener) {
-		listeners.add(RobotDeviceDebugListener.class, listener);
-	}
+    public RobotDevicesHandler() {
+        super();
+    }
 
-	@Override
-	public void addDeviceListener(RobotDeviceListener listener) {
-		listeners.add(RobotDeviceListener.class, listener);
-	}
+    @Override
+    public void addDeviceDebugListener(RobotDeviceDebugListener listener) {
+        listeners.add(RobotDeviceDebugListener.class, listener);
+    }
 
-	@Override
-	public IRobotDevice getDevice(String name) {
-		return devices.get(name);
-	}
+    @Override
+    public void addDeviceListener(IRobotDeviceListener listener) {
+        listeners.add(IRobotDeviceListener.class, listener);
+    }
 
-	@Override
-	public Map<String, IRobotDevice> getDevices() {
-		return devices;
-	}
+    @Override
+    public IRobotDevice getDevice(String name) {
+        return devices.get(name);
+    }
 
-	@Override
-	public Object getProperty(String deviceName, String propertyName) {
-		IRobotDevice device = getDevice(deviceName);
-		if (device != null) {
-			return device.getProperty(propertyName);
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public Map<String, IRobotDevice> getDevices() {
+        return devices;
+    }
 
-	@Override
-	public DeviceRequestDispatcher getRequestDispatcher() {
-		return requestsDispatcher;
-	}
+    @Override
+    public Object getProperty(String deviceName, String propertyName) {
+        IRobotDevice device = getDevice(deviceName);
+        if (device != null) {
+            return device.getProperty(propertyName);
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public DeviceResultDispatcher getResultDispatcher() {
-		return resultsDispatcher;
-	}
+    @Override
+    public IDeviceRequestDispatcher getRequestDispatcher() {
+        return requestsDispatcher;
+    }
 
-	@PostConstruct
-	protected void initialize() {
-		devices = new HashMap<String, IRobotDevice>();
-		listeners = new EventListenerList();
-		requestsDispatcher = new DeviceRequestDispatcher(this);
-		resultsDispatcher = new DeviceResultDispatcher(this);
-	}
+    @Override
+    public IDeviceResultDispatcher getResultDispatcher() {
+        return resultsDispatcher;
+    }
 
-	@Override
-	public void notifyDebug(IRobotDevice device, RobotDeviceRequest request, RobotDeviceResult result) {
-		// Guaranteed to return a non-null array
-		Object[] l = listeners.getListenerList();
-		// Process the listeners last to first, notifying
-		// those that are interested in this event
-		for (int i = l.length - 2; i >= 0; i -= 2) {
-			if (l[i] == RobotDeviceDebugListener.class) {
-				RobotDeviceDebugListener listener = ((RobotDeviceDebugListener) l[i + 1]);
-				if (listener.getDeviceName().equals(device.getName())) {
-					listener.debugEvent(new RobotDeviceDebugEvent(request, result));
-				}
-			}
-		}
-	}
+    @PostConstruct
+    protected void initialize() {
+        devices = new HashMap<String, IRobotDevice>();
+        listeners = new EventListenerList();
+        requestsDispatcher = new DeviceRequestDispatcher(this);
+        resultsDispatcher = new DeviceResultDispatcher(this);
+    }
 
-	@Override
-	public void notifyListeners(IRobotDevice device, RobotDeviceResult result) {
-		// Guaranteed to return a non-null array
-		Object[] l = listeners.getListenerList();
-		// Process the listeners last to first, notifying
-		// those that are interested in this event
-		for (int i = l.length - 2; i >= 0; i -= 2) {
-			if (l[i] == RobotDeviceListener.class) {
-				RobotDeviceListener listener = ((RobotDeviceListener) l[i + 1]);
-				if (device.getName().equals(listener.getDeviceName())) {
-					listener.handleResult(result);
-				}
-			}
-		}
-		notifyDebug(device, result.request, result);
-	}
+    @Override
+    public void notifyDebug(IRobotDevice device, IRobotDeviceRequest request, RobotDeviceResult result) {
+        // Guaranteed to return a non-null array
+        Object[] l = listeners.getListenerList();
+        // Process the listeners last to first, notifying
+        // those that are interested in this event
+        for (int i = l.length - 2; i >= 0; i -= 2) {
+            if (l[i] == RobotDeviceDebugListener.class) {
+                RobotDeviceDebugListener listener = ((RobotDeviceDebugListener) l[i + 1]);
+                String listenerDeviceName = listener.getDeviceName();
+                String deviceName = device.getName();
+                if (listenerDeviceName.equals(deviceName)) {
+                    listener.debugEvent(new RobotDeviceDebugEvent(request, result));
+                }
+            }
+        }
+    }
 
-	@Override
-	public void registerDevice(IRobotDevice device) {
-		devices.put(device.getName(), device);
-	}
+    @Override
+    public void notifyListeners(IRobotDevice device, RobotDeviceResult result) {
+        // Guaranteed to return a non-null array
+        Object[] l = listeners.getListenerList();
+        // Process the listeners last to first, notifying
+        // those that are interested in this event
+        for (int i = l.length - 2; i >= 0; i -= 2) {
+            if (l[i] == IRobotDeviceListener.class) {
+                IRobotDeviceListener listener = ((IRobotDeviceListener) l[i + 1]);
+                String deviceName = device.getName();
+                if (deviceName.equals(listener.getDeviceName())) {
+                    listener.handleResult(result);
+                }
+            }
+        }
+        notifyDebug(device, result.request, result);
+    }
 
-	@Override
-	public void removeDeviceDebugListener(RobotDeviceDebugListener listener) {
-		listeners.remove(RobotDeviceDebugListener.class, listener);
-	}
+    @Override
+    public void registerDevice(IRobotDevice device) {
+        devices.put(device.getName(), device);
+    }
 
-	@Override
-	public void removeDeviceListener(RobotDeviceListener listener) {
-		listeners.remove(RobotDeviceListener.class, listener);
-	}
+    @Override
+    public void removeDeviceDebugListener(RobotDeviceDebugListener listener) {
+        listeners.remove(RobotDeviceDebugListener.class, listener);
+    }
 
-	@Override
-	public void sendRequest(RobotDeviceRequest request) {
-		requestsDispatcher.sendRequest(request);
-	}
+    @Override
+    public void removeDeviceListener(IRobotDeviceListener listener) {
+        listeners.remove(IRobotDeviceListener.class, listener);
+    }
 
-	@Override
-	public void sendResult(IRobotDevice device, RobotDeviceResult result) {
-		resultsDispatcher.notifyResult(device, result);
-	}
+    @Override
+    public void sendRequest(RobotDeviceRequest request) {
+        requestsDispatcher.sendRequest(request);
+    }
 
-	@Override
-	public void setProperty(String deviceName, String propertyName, Object value) {
-		IRobotDevice device = getDevice(deviceName);
-		if (device != null) {
-			device.setProperty(propertyName, value);
-		}
-	}
+    @Override
+    public void sendResult(IRobotDevice device, RobotDeviceResult result) {
+        resultsDispatcher.notifyResult(device, result);
+    }
 
-	@Override
-	public void setServicesProvider(IRobotServiceProvider provider) {
-		provider.registerService(IRobotDevicesHandler.class, this);
-	}
+    @Override
+    public void setProperty(String deviceName, String propertyName, Object value) {
+        IRobotDevice device = getDevice(deviceName);
+        if (device != null) {
+            device.setProperty(propertyName, value);
+        }
+    }
 
-	@PreDestroy
-	protected void shutdown() {
-		if (requestsDispatcher != null) {
-			requestsDispatcher.terminate();
-			requestsDispatcher = null;
-		}
-		if (resultsDispatcher != null) {
-			resultsDispatcher.terminate();
-			resultsDispatcher = null;
-		}
-		if (listeners != null) {
-			listeners = null;
-		}
-		if (devices != null) {
-			devices.clear();
-			devices = null;
-		}
-	}
+    @Override
+    public void setServicesProvider(IRobotServiceProvider provider) {
+        provider.registerService(IRobotDevicesHandler.class, this);
+    }
 
-	@Override
-	public void unregisterDevice(IRobotDevice device) {
-		devices.remove(device.getName());
-	}
+    @PreDestroy
+    protected void shutdown() {
+        if (requestsDispatcher != null) {
+            requestsDispatcher.terminate();
+            requestsDispatcher = null;
+        }
+        if (resultsDispatcher != null) {
+            resultsDispatcher.terminate();
+            resultsDispatcher = null;
+        }
+        if (listeners != null) {
+            listeners = null;
+        }
+        if (devices != null) {
+            devices.clear();
+            devices = null;
+        }
+    }
+
+    @Override
+    public void unregisterDevice(IRobotDevice device) {
+        String deviceName = device.getName();
+        devices.remove(deviceName);
+    }
 }
